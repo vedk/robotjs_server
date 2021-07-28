@@ -24,10 +24,3 @@ const server = net.createServer((socket) => {
 server.listen(4567, () => {
     console.log('opened server on', server.address());
 });
-
-/*
-for (var x = 0; x < width; x++) {
-	y = height * Math.sin((twoPI * x)/width) + height;
-	robot.moveMouse(x, y);
-}
-*/
