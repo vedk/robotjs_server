@@ -1,10 +1,8 @@
 const robot = require('robotjs');
 const net = require('net');
 
-const twoPI = Math.PI * 2.0;
-const screenSize = robot.getScreenSize();
-const height = screenSize.height;
-const width = screenSize.width;
+const height = robot.getScreenSize().height;
+const width = robot.getScreenSize().width;
 
 const server = net.createServer((socket) => {
 	var ndx, ndy, temp;
