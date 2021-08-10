@@ -10,30 +10,35 @@ const server = net.createServer((socket) => {
 	console.log('client connected');
 
 	socket.on('data', (data) => {
+		console.log(socket.bytesRead);
 		var temp = data.toString();
-		temp = temp.substring(temp.search("{"),temp.search("}")+1);
-		console.log(temp);
-		try {
-			const obj = JSON.parse(temp);
-			ndx = obj.dx;
-			ndy = obj.dy;
-			mouse = robot.getMousePos();
-			switch (obj.action) {
-				case "click":
-					robot.mouseClick();
-					break;
-				case "move":
-					robot.moveMouse(width * ndx, height * ndy);
-					break;
-				case "drag":
-					robot.mouseToggle("down");
-					robot.dragMouse(width * ndx, height * ndy);
-					robot.mouseToggle("up");
-					break;
-			}
-		} catch (error) {
-			console.log(error)
+		var arr = temp.split('#');
+		console.log(arr);
+		for (let i = 0; i < arr.length; i++) {
+			try {
+				const obj = JSON.parse(arr[i]);
+				ndx = obj.dx;
+				ndy = obj.dy;
+				mouse = robot.getMousePos();
+				switch (obj.action) {
+					case "click":
+						robot.mouseClick();
+						break;
+					case "move":
+						robot.moveMouse(width * ndx, height * ndy);
+						break;
+					case "drag":
+						robot.mouseToggle("down");
+						robot.dragMouse(width * ndx, height * ndy);
+						robot.mouseToggle("up");
+						break;
+				}
+			} catch (error) {
+				console.log(error)
+			}	
+			
 		}
+		
 		
 		
 	});
